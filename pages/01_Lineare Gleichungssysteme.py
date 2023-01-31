@@ -25,10 +25,12 @@ x_1, x_2, x_3, t = sp.symbols("x_1, x_2, x_3, t")
 
 try:
     matrix = sp.Matrix([z1a, z2a, z3a])
+
     # Testmatrizen für eine, keine und unendlich viele Lösungen
     #matrix = sp.Matrix([[1,2,1,9],[-2,-1,5,5],[1,-1,3,4]])
     #matrix = sp.Matrix([[2,-3,-1,4],[1,2,3,1],[3,-8,-5,5]])
     #matrix = sp.Matrix([[1,2,-3,6],[2,-1,4,2],[4,3,-2,14]])
+    
     matrix2 = matrix.echelon_form()
     matrix3, mat_piv = matrix.rref()
 
