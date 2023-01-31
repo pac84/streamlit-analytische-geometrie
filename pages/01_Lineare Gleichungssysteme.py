@@ -1,8 +1,6 @@
 import streamlit as st
 import numpy as np
 import sympy as sp
-from fractions import Fraction
-from latexifier import latexify
 
 st.header("Lineare Gleichungssysteme")
 
