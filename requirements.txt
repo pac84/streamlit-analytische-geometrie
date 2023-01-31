@@ -2,3 +2,5 @@ streamlit
 numpy
 sympy
 matplotlib
+fractions
+latexifier
