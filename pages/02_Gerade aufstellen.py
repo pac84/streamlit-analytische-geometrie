@@ -7,7 +7,7 @@ from pages.packages.latexout import *
 st.header("Geradengleichung aufstellen")
 
 st.markdown("""
-Gib in die beiden Textfelder die Koordinaten zwei Punkte ein. Die Koordinaten werden durch ein Komma getrennt, für Dezimalzahlen wird der Punkt verwendet.
+Gib in die beiden Textfelder die Koordinaten von zwei Punkten ein, die auf einer Geraden liegen. Die Koordinaten werden durch ein Komma getrennt, für Dezimalzahlen wird der Punkt verwendet.
 """)
 
 col1, col2 = st.columns(2)
