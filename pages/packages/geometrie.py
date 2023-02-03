@@ -3,7 +3,7 @@
 #from sympy import *
 import sympy as sy
 import numpy as np
-#import math
+import math
 
 class Geometrie():
     """
