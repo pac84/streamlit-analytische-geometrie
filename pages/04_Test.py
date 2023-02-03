@@ -10,7 +10,7 @@ def geogebraBefehl(eingabe):
 a = st.slider("amp", 0.1, 5.0, 0.1)
 
 #befehle = geogebraBefehl(["a = Slider(1,5,0.1)","f(x)=a*sqrt(x)", '"f(x)=" + FormulaText(f)+""'])
-befehle = geogebraBefehl(['a = Slider(0,5,0.1)', 'f(x) = a*x^2', 'FormulaText(f, true, true)', r'c=Checkbox({f,Text1})', r'd=Checkbox({a})'])
+befehle = geogebraBefehl(['a = Slider(0,5,0.1)', 'f(x) = a*x^2', 'FormulaText(f, true, true)', r'c=Checkbox({f,Text1})', r'd=Checkbox({a})', 'SetBackgroundColor(Text1, "#FFFFFFFF")', 'BinomialDist(5,0.2)', 'Normal(1,0.3,x,false)'])
 
 window_width = 800
 window_height = 600
@@ -34,6 +34,8 @@ js_text ="""
         ggbApplet.setCoords("Text1", -5, 3);
         ggbApplet.setCoords("a", 500, 50);
         ggbApplet.registerAddListener("myAddListenerFunction"); 
+        gbbApplet.setLabelStyle('f', 2)
+        gbbApplet.setLabelVisible('f', true);
     }
 
     function myAddListenerFunction(name) {
