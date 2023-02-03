@@ -3,7 +3,6 @@
 #from sympy import *
 import sympy as sy
 import numpy as np
-import math
 
 class Geometrie():
     """
@@ -238,7 +237,7 @@ class Geometrie():
         abstand = 0
         for i in range(len(punkt1)):
             abstand += (punkt1[i] - punkt2[i])**2
-        return math.sqrt(abstand)
+        return np.sqrt(abstand)
 
     def abstandPunktGerade (self, punkt, gerade):
         if self.punktAufGerade(punkt, gerade):
@@ -257,7 +256,7 @@ class Geometrie():
             for item in ebene[0]:
                 nenner += item**2
             
-            return zaehler/math.sqrt(nenner)
+            return zaehler/np.sqrt(nenner)
     
     def abstandGeradeEbene(self, gerade, ebene):
         lagebeziehung = self.lageGeradeEbene(gerade, ebene)
@@ -292,8 +291,8 @@ class Geometrie():
         for i in range(len(vektor1)):
             norm1 += vektor1[i]**2
             norm2 += vektor2[i]**2
-        argument = zaehler/(math.sqrt(norm1)*math.sqrt(norm2))
-        return math.acos(argument)
+        argument = zaehler/(np.sqrt(norm1)*np.sqrt(norm2))
+        return np.acos(argument)
 
     def winkelVektorenAbsolute(self, vektor1, vektor2):
         winkel = self.winkelVektoren(vektor1, vektor2)
@@ -315,7 +314,7 @@ class Geometrie():
         
 		
     def winkelRadGrad(self, winkel):
-        return 180.0/math.pi * winkel
+        return 180.0/np.pi * winkel
 
     """
     Hilfsmethoden
@@ -361,11 +360,11 @@ class Geometrie():
         if a.dtype == 'object':
             return a
         for item in a:
-                if item != math.floor(item):
+                if item != np.floor(item):
                     return a
         ggT = a[0]
         for i in a[1:]:
-            ggT = self.gcd(ggT, math.fabs(i))
+            ggT = self.gcd(ggT, np.fabs(i))
         
         vektorGekuerzt = np.array([])
         vektor2 = a.astype(int)
