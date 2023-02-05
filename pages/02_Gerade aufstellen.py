@@ -4,6 +4,7 @@ import sympy as sp
 
 from pages.packages.geometrie import *
 from pages.packages.latexout import *
+from pages.packages.geogebra import *
 
 st.header("Geradengleichung aufstellen")
 
@@ -23,28 +24,34 @@ rechner = Geometrie()
 try:
     a = sp.Matrix([eingabe_a.split(",")])
     b = sp.Matrix([eingabe_b.split(",")])
-    v = b-a
+    if a.equals(b):
+        st.write("Die zwei Punkte sind identisch und es kann nicht eine eindeutige Gerade angegeben werden.")
+    else:
+        v = b-a
 
-    st.markdown(r"""
-    Wähle den Ortsvektor des Punktes 1 als Stützvektor
-    $$
-    \begin{align*}
-        \vec{p} = %s
-    \end{align*}
-    $$
-    und den Verbindungsvektor der beiden Punkte als Richtungsvektor
-    $$
-    \begin{align*}
-        \vec{v} = %s - %s = %s
-    \end{align*}
-    $$
-    Die Geradengleichung lautet
-    $$
-    \begin{align*}
-        g: \vec{x} = %s + t \cdot %s
-    \end{align*}
-    $$
-    """ % (pmatrix(a), pmatrix(b), pmatrix(a), pmatrix(v), pmatrix(a), pmatrix(v)))
+        st.markdown(r"""
+        Wähle den Ortsvektor des Punktes 1 als Stützvektor
+        $$
+        \begin{align*}
+            \vec{p} = %s
+        \end{align*}
+        $$
+        und den Verbindungsvektor der beiden Punkte als Richtungsvektor
+        $$
+        \begin{align*}
+            \vec{v} = %s - %s = %s
+        \end{align*}
+        $$
+        Die Geradengleichung lautet
+        $$
+        \begin{align*}
+            g: \vec{x} = %s + t \cdot %s
+        \end{align*}
+        $$
+        """ % (pmatrix(a), pmatrix(b), pmatrix(a), pmatrix(v), pmatrix(a), pmatrix(v)))
+        
+        ggb_out = Geogebra()
     
+        st.components.v1.html(ggb_out.ausgabeJavascript3d(600,800,[ggb_out.punkt3d('P',a), ggb_out.punkt3d('Q',b), ggb_out.gerade3d('g', a, b)]), height=600, width=800)
 except:
     st.write("Bitte korrekte Werte eingeben.")
