@@ -20,6 +20,7 @@ with col2:
     eingabe_b = st.text_input("Punkt 2")
 
 rechner = Geometrie()
+ggb = Geogebra()
 
 try:
     a = sp.Matrix([eingabe_a.split(",")])
@@ -50,8 +51,8 @@ try:
         $$
         """ % (pmatrix(a), pmatrix(b), pmatrix(a), pmatrix(v), pmatrix(a), pmatrix(v)))
         
-        ggb_out = Geogebra()
+        
     
-        st.components.v1.html(ggb_out.ausgabeJavascript3d(600,800,[ggb_out.punkt3d('P',a), ggb_out.punkt3d('Q',b), ggb_out.gerade3d('g', a, b)]), height=600, width=800)
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.punkt3d('P',a), ggb.punkt3d('Q',b), ggb.gerade3d('g', a, b)]), height=600, width=800)
 except:
     st.write("Bitte korrekte Werte eingeben.")

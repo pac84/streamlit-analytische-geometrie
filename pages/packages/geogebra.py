@@ -14,7 +14,7 @@ class Geogebra():
         <meta charset="utf-8"/>
         <script src="https://www.geogebra.org/apps/deployggb.js"></script>
         <script>  
-            var params = {"appName": "classic", "material_id": "pb85ndew", "width": %d, "height": %d, "showToolBar": false, "showAlgebraInput": false, "showMenuBar": false, "useBrowserForJS": true};
+            var params = {"appName": "classic", "material_id": "pb85ndew", "width": %d, "height": %d, "showToolBar": false, "showAlgebraInput": true, "showMenuBar": false, "useBrowserForJS": true};
             var applet = new GGBApplet(params, true); 
 
             window.addEventListener("load", function() { 
@@ -66,3 +66,9 @@ class Geogebra():
     
     def gerade3d(self, name, punkt1, punkt2):
         return "%s = Line((%f,%f,%f),(%f,%f,%f))" % (name, punkt1[0], punkt1[1], punkt1[2], punkt2[0], punkt2[1], punkt2[2])
+    
+    def gerade3dsp(self, name, gerade):
+        return "%s = Line((%f,%f,%f),(%f,%f,%f))" % (name, gerade.points[0][0], gerade.points[0][1], gerade.points[0][2], gerade.points[1][0], gerade.points[1][1], gerade.points[1][2])
+    
+    def farbe(self, name, farbe):
+        return "SetColor(%s, %s)" % (name, farbe);
