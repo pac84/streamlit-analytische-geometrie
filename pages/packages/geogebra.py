@@ -64,9 +64,12 @@ class Geogebra():
     def punkt3d(self, name, koordinaten):
         return "%s = (%f,%f,%f)" % (name, koordinaten[0], koordinaten[1], koordinaten[2])
     
+    def punkt3dsp(self, name, koordinaten):
+        return "%s = (%f,%f,%f)" % (name, koordinaten.x, koordinaten.y, koordinaten.z)
+    
     def gerade3d(self, name, punkt1, punkt2):
         return "%s = Line((%f,%f,%f),(%f,%f,%f))" % (name, punkt1[0], punkt1[1], punkt1[2], punkt2[0], punkt2[1], punkt2[2])
-    
+
     def gerade3dsp(self, name, gerade):
         return "%s = Line((%f,%f,%f),(%f,%f,%f))" % (name, gerade.points[0][0], gerade.points[0][1], gerade.points[0][2], gerade.points[1][0], gerade.points[1][1], gerade.points[1][2])
     
