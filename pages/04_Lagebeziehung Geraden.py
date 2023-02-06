@@ -76,6 +76,26 @@ try:
     %s
         """ % (pmatrix(g1_sv), pmatrix(g1_rv), pmatrix(g2_sv), sp.latex(g1z1), sp.latex(g2_sv[0]), sp.latex(g1z1_lsg[0]), sp.latex(g1z2), sp.latex(g2_sv[1]), sp.latex(g1z2_lsg[0]), sp.latex(g1z3), sp.latex(g2_sv[2]), sp.latex(g1z3_lsg[0]), auswertung)
     else: 
+        lsg = sp.solve([g1z1-g2z1, g1z2-g2z2, g1z3-g2z3], s,t)
+        schnittpunkt = sp.Line3D.intersection(g1,g2)
+
+        if len(lsg) > 0:
+            s1 = lsg[s]
+            t1 = lsg[t]
+            auswertung = r"""
+    Das LGS ist lösbar für $t = %s$ und $s= %s$. Der Schnittpunkt wird berechnet, indem man den Wert von $t$ in $g_1$ oder den Wert von $s$ in $g_2$ einsetzt.
+    $$
+    \begin{align*}
+        \vec{x} = %s + \left(%s\right) \cdot %s = \begin{pmatrix} %s \\ %s \\ %s \end{pmatrix}
+    \end{align*}
+    $$
+    Die beiden Geraden schneiden sich im Punkt $P(%s|%s|%s)$.
+        """ % (sp.latex(t1), sp.latex(s1),
+               pmatrix(g1_sv), sp.latex(t1), pmatrix(g1_rv),
+               sp.latex(schnittpunkt[0].x), sp.latex(schnittpunkt[0].y), sp.latex(schnittpunkt[0].z),
+               sp.latex(schnittpunkt[0].x), sp.latex(schnittpunkt[0].y), sp.latex(schnittpunkt[0].z))
+        else:    
+            auswertung = "Das LGS ist nicht lösbar, d.h. die beiden Geraden sind **windschief** zueinander."
         berechnung = r"""
     Die Richtungsvektoren sind keine Vielfachen voneinander, d.h. die Geraden schneiden sich in einem Punkt oder sind windschief. Die beiden Geradengleichungen müssen gleichgesetzt werden und die Lösung des LGS bestimmt werden. Falls es keine Lösung gibt, sind die Geraden windschief. Gleichsetzen der beiden Geraden liefert
     $$
@@ -91,8 +111,9 @@ try:
         %s = %s 
     \end{align*}
     $$
+    %s
         """ % (pmatrix(g1_sv), pmatrix(g1_rv), pmatrix(g2_sv), pmatrix(g2_rv),
-               sp.latex(g1z1),sp.latex(g2z1),sp.latex(g1z2),sp.latex(g2z2),sp.latex(g1z3),sp.latex(g2z3))
+               sp.latex(g1z1),sp.latex(g2z1),sp.latex(g1z2),sp.latex(g2z2),sp.latex(g1z3),sp.latex(g2z3), auswertung)
         
 
     st.markdown(r"""
@@ -113,7 +134,10 @@ try:
     $$
     %s
     """ % (pmatrix(g1_sv), pmatrix(g1_rv), pmatrix(g2_sv), pmatrix(g2_rv), berechnung))
-
-    st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.gerade3dsp('g_1',g1), ggb.gerade3dsp('g_2', g2), ggb.farbe('g_1', 'red'), ggb.farbe('g_2', 'blue')]), height=600, width=800)
+    if len(lsg)>0:
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.gerade3dsp('g_1',g1), ggb.gerade3dsp('g_2', g2), ggb.farbe('g_1', 'red'), ggb.farbe('g_2', 'blue'),  ggb.punkt3dsp('P',
+                                                                                                                                                                                      schnittpunkt[0])]), height=600, width=800)
+    else: 
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.gerade3dsp('g_1',g1), ggb.gerade3dsp('g_2', g2), ggb.farbe('g_1', 'red'), ggb.farbe('g_2', 'blue')]), height=600, width=800)
 except:
     st.write("Bitte korrekte Werte eingeben.")
