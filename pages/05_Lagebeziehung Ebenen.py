@@ -19,11 +19,11 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.write("Ebene 1")
-    eingabe_e1_n = st.text_input("Normalenvektor von Ebene 1")
+    eingabe_e1_n = st.text_input("Normalenvektor von $E_1$")
     eingabe_e1_p = st.text_input("Punkt auf $E_1$")
 with col2:
     st.write("Ebene 2")
-    eingabe_e2_n = st.text_input("Normalenvektor von Ebene 2")
+    eingabe_e2_n = st.text_input("Normalenvektor von $E_2$")
     eingabe_e2_p = st.text_input("Punkt auf $E_2$")
 try:
     e1_n_list = eingabe_e1_n.split(',')
