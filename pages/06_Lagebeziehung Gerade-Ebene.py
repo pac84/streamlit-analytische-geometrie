@@ -12,7 +12,7 @@ ggb = Geogebra()
 st.header("Lagebeziehung von Gerade und Ebene")
 
 st.markdown("""
-Gib in die links die Daten einer Geraden und rechts einer Ebene ein
+Gib in die links die Daten einer Geraden und rechts einer Ebene ein. Die Werte werden durch ein Komma getrennt, Dezimalzahlen mit einem Punkt (z.B. 0.5) oder als Bruch (z.B. 1/2).
 """)
 
 col1, col2 = st.columns(2)
