@@ -84,6 +84,28 @@ try:
         
         st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.gerade3dsp('g_1',schnitt_gerade), ggb.ebene3d('E_1', e1_n, e1_d), ggb.ebene3d('E_2', e2_n, e2_d), ggb.farbe('E_1', 'red'), ggb.farbe('E_2', 'blue')]), height=600, width=800)
     else:
+        identisch = e1.equals(e2)
+        x_1, x_2, x_3, d = sp.symbols('x_1 x_2 x_3 d')
+        gleichung = e1_n[0] * x_1 + e1_n[1] * x_2 + e1_n[2] * x_3
+        gleichung2 = gleichung.subs([(x_1, sp.UnevaluatedExpr(e2_p.x)), (x_2, sp.UnevaluatedExpr(e2_p.y)), (x_3, sp.UnevaluatedExpr(e2_p.z))], order='none')
+        gleichung3 = gleichung.subs([(x_1, e2_p.x), (x_2, e2_p.y), (x_3, e2_p.z)])
+        if identisch:
+            auswertung = "Die Aussage in der letzten Zeile ist wahr. Der Punkt liegt in der Ebene, d.h. die Ebenen sind identisch."
+        else:
+            auswertung = "Die Aussage in der letzten Zeile ist nicht wahr. Der Punkt liegt nicht in der Ebene, d.h. die Ebenen sind parallel."
+        st.markdown(r"""
+        Die Normalenvektoren der beiden Ebenen sind Vielfache voneinander, d.h. die beiden Ebenen sind parallel zueinander oder sie sind identisch. Zur Überprüfung führt man eine Punktprobe eines Punktes der einen Ebene mit der anderen Ebene durch. Wenn ein Punkt der einen Ebene in der anderen Ebene liegt, dann sind die Ebenen identisch und ansonsten parallel.
+        $$
+        \begin{align*}
+            %s &= %s\\
+            %s &= %s\\
+            %s &= %s
+        \end{align*}
+        $$
+        %s
+        """ % (sp.latex(gleichung), sp.latex(e1_d),
+               sp.latex(gleichung2), sp.latex(e1_d),
+               sp.latex(gleichung3), sp.latex(e1_d), auswertung))
         st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.ebene3d('E_1', e1_n, e1_d), ggb.ebene3d('E_2', e2_n, e2_d), ggb.farbe('E_1', 'red'), ggb.farbe('E_2', 'blue')]), height=600, width=800)
 except:
     st.write("Bitte korrekte Daten eingeben.")
