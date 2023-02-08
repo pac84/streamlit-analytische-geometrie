@@ -43,6 +43,10 @@ def gerade(name, gerade):
     ausgabe = line(name, 't', gerade[0], gerade[1])
     return ausgabe
 
+def gerade_sp(name, ger):
+    return gerade(name, [ger.p1, ger.direction_ratio])
+
+
 #
 # Ebenengleichungen
 #
@@ -78,11 +82,11 @@ def planeKoordinatengleichung(name, normalenvektor, parameterD):
                 faktor = "-"
             else:
                 #faktor = str(sy.latex(normalenvektor[i]))
-                faktor = str(normalenvektor[i])
+                faktor = sy.latex(normalenvektor[i])
             rv += rechenzeichen + faktor + r"x_{" + str(i+1) + r"} "
             ersterEintrag = False
     rv = rv[:-1]
-    rv += " = " + str(parameterD)
+    rv += " = " + sy.latex(parameterD)
     return rv
 
 def planeNormalengleichung(name, normalenvektor, stuetzvektor):
