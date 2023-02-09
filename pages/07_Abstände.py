@@ -36,7 +36,7 @@ def eingabeAnzeigen(obj1, obj2):
 st.header("Abstände")
 
 st.markdown("""
-Wähle aus, zwischen welcher Art von Objekten der Abstand berechnet werden soll.
+Wähle aus, zwischen welcher Art von Objekten der Abstand berechnet werden soll und gib die dafür benötigten Werte ein. Dezimalzahlen werden mit einem "." eingegeben und die einzelnen Koordinaten mit einem "," getrennt. Es können auch Brüche (z.B. "1/2") eingegeben werden.
 """)
 
 col1, col2 = st.columns(2)
