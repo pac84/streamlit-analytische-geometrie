@@ -5,9 +5,11 @@ import sympy as sp
 from pages.packages.geometrie import *
 from pages.packages.latexout import *
 from pages.packages.geogebra import *
+from pages.packages.abstaende import *
 
 rechner = Geometrie()
 ggb = Geogebra()
+abstand = Abstaende()
 
 def eingabeAnzeigen(obj1, obj2):
     if isinstance(obj1, sp.geometry.Point3D):
@@ -123,45 +125,66 @@ with col2:
 if auswahl1 == 1 and auswahl2 == 1:
     try:
         st.markdown(eingabeAnzeigen(p_1, p_2))
+        st.markdown(r"""
+        Einsetzen der Koordinaten der Punkte in die Formel für den Abstand
+        %s
+        """ % (abstand.punkt_punkt(p_1, p_2)))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.punkt3dsp('P_1', p_1),ggb.punkt3dsp('P_2', p_2)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 2 and auswahl2 == 2:
     try:
         st.markdown(eingabeAnzeigen(g1, g2))
+        st.markdown(abstand.gerade_gerade(g1, g2))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.gerade3dsp('g_1', g1), ggb.gerade3dsp('g_2', g2)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 3 and auswahl2 == 3:
     try:
         st.markdown(eingabeAnzeigen(e1, e2))
+        st.markdown(abstand.ebene_ebene(e1,e2))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.ebene3dsp('E_1',e1),ggb.ebene3dsp('E_2',e2)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 1 and auswahl2 == 2:
     try:
         st.markdown(eingabeAnzeigen(p_1, g2))
+        st.markdown(abstand.punkt_gerade(p_1,g2))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.gerade3dsp('g_2', g2), ggb.punkt3dsp('P_1', p_1)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 2 and auswahl2 == 1:
     try:
         st.markdown(eingabeAnzeigen(g1, p_2))
+        st.markdown(abstand.punkt_gerade(p_2, g1))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.gerade3dsp('g_1', g1), ggb.punkt3dsp('P_2', p_2)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 1 and auswahl2 == 3:
     try:
         st.markdown(eingabeAnzeigen(p_1, e2))
+        st.markdown(abstand.punkt_ebene(p_1, e2))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.ebene3dsp('E_2', e2), ggb.punkt3dsp('P_1', p_1)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 3 and auswahl2 == 1:
     try:
         st.markdown(eingabeAnzeigen(e1, p_2))
+        st.markdown(abstand.punkt_ebene(p_2, e1))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.ebene3dsp('E_1', e1), ggb.punkt3dsp('P_2', p_2)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 2 and auswahl2 == 3:
     try:
         st.markdown(eingabeAnzeigen(g1, e2))
+        st.markdown(abstand.gerade_ebene(g1, e2))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.ebene3dsp('E_2', e2), ggb.gerade3dsp('g_1', g1)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')
 elif auswahl1 == 3 and auswahl2 == 2:
     try:
         st.markdown(eingabeAnzeigen(e1, g2))
+        st.markdown(abstand.gerade_ebene(g2, e1))
+        st.components.v1.html(ggb.ausgabeJavascript3d(600,800,[ggb.ebene3dsp('E_1', e1), ggb.gerade3dsp('g_2', g2)]), height=600, width=800)
     except:
         st.write('korrekte Daten eingeben')

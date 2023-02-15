@@ -61,6 +61,12 @@ class Geogebra():
     def ebene3d(self, name, normalenvektor, parameterd):
         return "%s = Plane(%f*x+%f*y+%f*z=%f)" % (name, normalenvektor[0], normalenvektor[1], normalenvektor[2], parameterd)
     
+    def ebene3dsp(self, name, ebene1):
+        e_d = 0
+        for i in range(len(ebene1.normal_vector)):
+            e_d+= ebene1.normal_vector[i]*ebene1.p1[i]
+        return self.ebene3d(name, ebene1.normal_vector, e_d)
+
     def punkt3d(self, name, koordinaten):
         return "%s = (%f,%f,%f)" % (name, koordinaten[0], koordinaten[1], koordinaten[2])
     
