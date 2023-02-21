@@ -6,7 +6,7 @@ class Winkel():
     def schnittwinkel(self, obj1, obj2):
         winkel = sp.N(obj1.angle_between(obj2))
         winkelDeg = 180*winkel/np.pi
-        print(np.abs(np.floor(winkelDeg)-winkelDeg))
+
         if np.abs(np.floor(winkelDeg)-winkelDeg) > 0:
             ausgabe = '= %.2f ...' % winkelDeg
         else:
