@@ -81,3 +81,6 @@ class Geogebra():
     
     def farbe(self, name, farbe):
         return "SetColor(%s, %s)" % (name, farbe);
+
+    def winkel(self, obj1, obj2):
+        return "Angle(%s, %s)" % (obj1, obj2)

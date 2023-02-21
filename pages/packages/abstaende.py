@@ -19,13 +19,13 @@ class Abstaende():
         d1 = d.subs([(p_1-q_1, sp.UnevaluatedExpr(punkt1.x-punkt2.x)),(p_2-q_2, sp.UnevaluatedExpr(punkt1.y-punkt2.y)),(p_3-q_3, sp.UnevaluatedExpr(punkt1.z-punkt2.z))])
         d2 = d.subs([(p_1,punkt1.x),(p_2,punkt1.y),(p_3,punkt1.z),(q_1,punkt2.x),(q_2,punkt2.y),(q_3,punkt2.z)])
         rechenweg = r"""
-        $$
-        \begin{align*}
-            d &= %s \\
-            &= %s \\
-            &= %s
-        \end{align*}
-        $$
+$$
+\begin{align*}
+    d &= %s \\
+    &= %s \\
+    &= %s
+\end{align*}
+$$
         """ % (sp.latex(d),(sp.latex(d1)), sp.latex(d2))
         return rechenweg
 
@@ -36,15 +36,15 @@ class Abstaende():
         h = sp.geometry.Plane(punkt1,normal_vector = gerade.direction_ratio)
         punkt2 = sp.geometry.intersection(h,gerade)
         rechenweg = r"""
-        Aufstellen einer Hilfsebene $E$, die den Punkt P enthält und orthogonal zur Gerade $g$ ist, d.h. der Normalenvektor der Ebene ist der Richtungsvektor der Ebene
-        $$
-        \begin{align*}
-            E: %s &= 0
-        \end{align*}
-        $$
-        Berechnen des Schnittpunkts von $E$ mit $g$ zu $%s$. Der Abstand des Punktes zur Gerade ist derselbe wie der Abstand der beiden Punkte. Für den Abstand gilt
-            %s
-            """ % (sp.latex(h.equation()), punkt('P', punkt2[0]), self.punkt_punkt(punkt1, punkt2[0]))
+Aufstellen einer Hilfsebene $E$, die den Punkt $%s$ enthält und orthogonal zur Gerade $g$ ist, d.h. der Normalenvektor der Ebene ist der Richtungsvektor der Geraden
+$$
+\begin{align*}
+    E: %s &= 0
+\end{align*}
+$$
+Berechnen des Schnittpunkts von $E$ mit $g$ zu $%s$. Der Abstand des Punktes zur Gerade ist derselbe wie der Abstand der beiden Punkte. Für den Abstand gilt
+    %s
+    """ % (punkt('P',punkt1), sp.latex(h.equation()), punkt('S', punkt2[0]), self.punkt_punkt(punkt1, punkt2[0]))
         return rechenweg
     
     def punkt_ebene(self, punkt1, ebene1):
@@ -58,23 +58,23 @@ class Abstaende():
         paramd = np.dot(normvec, ebene1.p1)
         zaehler = normvec[0]*x_1 + normvec[1]*x_2 + normvec[2]*x_3 - paramd
         rechenweg = r"""
-        Aufstellen der Hilfsgeraden $h$, die den Punkt P enthält und orthogonal zur Ebene $E$ ist, d.h. als Richtungsvektor den Stützvektor der Ebene übernimmt.
-        $$
-        \begin{align*}
-            %s
-        \end{align*}
-        $$
-        Berechnung des Schnittpunkts $S$ der Geraden $h$ mit der Ebene $E$, es gilt $%s$. Der Abstand des Punktes zur Ebene ist derselbe wie der Abstand der beiden Punkte. Für den Abstand gilt
-        %s
-        Alternativ kann der Abstand auch mit der Hesse'schen Normalform berechnet werden, indem man die Koordinaten des Punktes einsetzt.
-        $$  
-        \begin{align*}
-            d &= \frac{|%s|}{\sqrt{(%s)^2+(%s)^2+(%s)^2}}\\
-            &= \frac{|%s|}{\sqrt{%s}}\\
-            &= \frac{|%s|}{\sqrt{%s}}\\
-            &= %s
-        \end{align*}
-        $$
+Aufstellen der Hilfsgeraden $h$, die den Punkt P enthält und orthogonal zur Ebene $E$ ist, d.h. als Richtungsvektor den Stützvektor der Ebene übernimmt.
+$$
+\begin{align*}
+    %s
+\end{align*}
+$$
+Berechnung des Schnittpunkts $S$ der Geraden $h$ mit der Ebene $E$, es gilt $%s$. Der Abstand des Punktes zur Ebene ist derselbe wie der Abstand der beiden Punkte. Für den Abstand gilt
+%s
+Alternativ kann der Abstand auch mit der Hesse'schen Normalform berechnet werden, indem man die Koordinaten des Punktes einsetzt.
+$$  
+\begin{align*}
+    d &= \frac{|%s|}{\sqrt{(%s)^2+(%s)^2+(%s)^2}}\\
+    &= \frac{|%s|}{\sqrt{%s}}\\
+    &= \frac{|%s|}{\sqrt{%s}}\\
+    &= %s
+\end{align*}
+$$
         """ % (gerade_sp('h', hilfsgerade), punkt('S', schnittpunkt[0]), self.punkt_punkt(punkt1, schnittpunkt[0]),
                sp.latex(ebene1.equation(x='x_1',y='x_2',z='x_3')), sp.latex(normvec[0]),sp.latex(normvec[1]),sp.latex(normvec[2]),
                sp.latex(zaehler.subs([(x_1,sp.UnevaluatedExpr(punkt1.x)),(x_2,sp.UnevaluatedExpr(punkt1.y)),(x_3,sp.UnevaluatedExpr(punkt1.z))])), sp.latex(normvec[0]**2+normvec[1]**2+normvec[2]**2),
@@ -115,7 +115,10 @@ class Abstaende():
             return "Die Geraden schneiden sich im Punkt $%s$, d.h. der Abstand ist $d=0$." % punkt('S',schnittpunkt[0])
         if gerade1.is_similar(gerade2):
             return "Die beiden Geraden sind identisch, d.h. der Abstand ist $d=0$."
-        
+        if sp.geometry.Line3D.is_parallel(gerade1, gerade2):
+            rechenweg = r"Die Geraden sind parallel, d.h. man kann den Abstand eine bliebigen Punktes der einen Geraden zur anderen Geraden berechnen."
+            rechenweg += self.punkt_gerade(gerade2.p1, gerade1)
+            return rechenweg
         normvec = np.cross(gerade1.direction_ratio, gerade2.direction_ratio)
         vecp1 = gerade1.p1
         vecp2 = gerade2.p1
